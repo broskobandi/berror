@@ -11,6 +11,12 @@ typedef struct berror_info {
 #define BERROR_SET(message)\
 	berror_set((berror_info_t){.file = __FILE__, .func = __func__, .msg = (message), .line = __LINE__})
 
+#define ERR(message, return_value)\
+	do {\
+		BERROR_SET(message);\
+		return (return_value);\
+	} while(0);
+
 void berror_set(berror_info_t err_info);
 void berror_print();
 berror_info_t berror_get();
