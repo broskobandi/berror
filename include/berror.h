@@ -13,5 +13,6 @@ typedef struct berror_info {
 
 void berror_set(berror_info_t err_info);
 void berror_print();
+berror_info_t berror_get();
 
 #endif

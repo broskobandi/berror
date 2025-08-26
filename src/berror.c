@@ -23,3 +23,7 @@ void berror_print() {
 #endif
 
 }
+
+berror_info_t berror_get() {
+	return g_err;
+}

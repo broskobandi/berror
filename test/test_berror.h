@@ -5,5 +5,6 @@
 
 void test_berror_set();
 void test_berror_print();
+void test_berror_get();
 
 #endif
