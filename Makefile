@@ -3,7 +3,6 @@ PROJECT := berror
 CC := $(shell command -v clang || command -v gcc)
 CFLAGS := -Wall -Wextra -Werror -Wconversion -Wunused-result
 CPPFLAGS := -Iinclude
-LDFLAGS := -pthread
 
 # Dirs
 BUILD_DIR := build
@@ -36,6 +35,7 @@ all: $(LIB_A) $(LIB_SO)
 
 test: CC := bear -- $(CC)
 test: CPPFLAGS += -Itest -Isrc
+test: CFLAGS += -DTEST
 test: $(TEST_EXE)
 	./$<
 
@@ -59,10 +59,10 @@ $(LIB_A): $(OBJ) | $(BUILD_DIR)
 	ar rcs $@ $<
 
 $(LIB_SO): $(OBJ) | $(BUILD_DIR)
-	$(CC) -shared $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
+	$(CC) -shared $(CFLAGS) $(CPPFLAGS) $^ -o $@
 
-$(TEST_EXE): $(TEST) $(OBJ) $(TEST_OBJ) | $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
+$(TEST_EXE): $(TEST_MAIN) $(OBJ) $(TEST_OBJ) | $(BUILD_DIR)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC) $(INC_PRIV) | $(OBJ_DIR)
 	$(CC) -c -fPIC $(CFLAGS) $(CPPFLAGS) $< -o $@
