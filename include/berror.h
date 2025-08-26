@@ -8,7 +8,7 @@ typedef struct berror_info {
 	int line;
 } berror_info_t;
 
-#define BSET_ERR(message)\
+#define BERROR_SET(message)\
 	berror_set((berror_info_t){.file = __FILE__, .func = __func__, .msg = (message), .line = __LINE__})
 
 void berror_set(berror_info_t err_info);
