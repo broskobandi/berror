@@ -57,7 +57,8 @@ typedef struct berror_info {
 void berror_set(const berror_info_t err_info);
 /** Prints the contents of the thread-local global error object. */
 void berror_print();
-/** Returns the contents of the thrad-local global error object. */
+/** Returns the contents of the thrad-local global error object.
+ * \return The error info. */
 berror_info_t berror_get();
 
 #endif

@@ -56,7 +56,8 @@ void berror_print() {
 
 }
 
-/** Returns the contents of the global error object. */
+/** Returns the contents of the thrad-local global error object.
+ * \return The error info. */
 berror_info_t berror_get() {
 	return g_err;
 }
