@@ -84,3 +84,9 @@ int main(int argc, char *argv[]) {
 }
 ```
 Don't forget to add -lberror to the compile command to link the library.
+## Generate documentation
+```bash
+cd berror &&
+make doc
+```
+Then open the index.html file in doc/html to read the documentation.
