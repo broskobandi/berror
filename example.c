@@ -1,5 +1,6 @@
 /* Include the library */
 #include <berror.h>
+#include <stdio.h>
 
 /* Find a fallible function. */
 float divide(float dividend, float divisor) {
@@ -24,6 +25,28 @@ int main(int argc, char *argv[]) {
 		berror_print();
 		return 1;
 	}
+	/* This will print:
+		[ERROR]:
+		File: example.c
+		Func: divide
+		Line: 13
+		Message: Divisor must not be 0. */
+
+	/* If calling a function that sets the standard errno,
+	 * that information will also be printed. */
+	FILE *file = fopen("some_file_that_does_not_exist", "r");
+	if (!file) {\
+		BERROR_SET("Failed to open file.");
+		berror_print();
+		return 1;
+	}
+	/* This will print:
+		[ERROR]:
+		File: example.c
+		Func: main
+		Line: 34
+		Message: Failed to open file.
+	Additional information: No such file or directory */
 
 	return 0;
 }

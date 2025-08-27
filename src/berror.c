@@ -49,7 +49,7 @@ void berror_print() {
 	fprintf(stderr, "[ERROR]:\n\tFile: %s\n\tFunc: %s\n\tLine: %d\n\tMessage: %s\n",
 			g_err.file, g_err.func, g_err.line, g_err.msg);
 	if (errno)
-		perror(NULL);
+		perror("Additional information");
 #else
 	g_is_err_printed = 1;
 #endif
