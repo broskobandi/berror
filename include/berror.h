@@ -52,12 +52,12 @@ typedef struct berror_info {
 		return __VA_ARGS__;\
 	} while(0);
 
-/** Sets the global error object.
+/** Sets the thread-local global error object.
  * \param err_info The error information to be copied to the global error object. */
 void berror_set(const berror_info_t err_info);
-/** Prints the contents of the global error object. */
+/** Prints the contents of the thread-local global error object. */
 void berror_print();
-/** Returns the contents of the global error object. */
+/** Returns the contents of the thrad-local global error object. */
 berror_info_t berror_get();
 
 #endif
