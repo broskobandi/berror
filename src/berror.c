@@ -26,6 +26,7 @@ SOFTWARE.
  * \details This file contains the implementation of the berror library. */
 
 #include "berror_utils.h"
+#include <string.h>
 #include <stdio.h>
 #include <errno.h>
 
@@ -60,4 +61,9 @@ void berror_print() {
  * \return The error info. */
 berror_info_t berror_get() {
 	return g_err;
+}
+
+/** Clears the contents of the thread-local global error object. */
+void berror_reset() {
+	memset(&g_err, 0, sizeof(berror_info_t));
 }

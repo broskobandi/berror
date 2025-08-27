@@ -42,3 +42,23 @@ void test_berror_get() {
 		memset(&g_err, 0, sizeof(berror_info_t));
 	}
 }
+
+void test_berror_reset() {
+	memset(&g_err, 0, sizeof(berror_info_t));
+	{ // Normal case
+		berror_info_t empty = {0};
+		berror_info_t src = {
+			.msg = "msg",
+			.file = __FILE__,
+			.func = __func__,
+			.line = __LINE__
+		};
+		berror_set(src);
+		berror_info_t dst = berror_get();
+		BASSERT(!memcmp(&src, &dst, sizeof(berror_info_t)));
+		berror_reset();
+		berror_info_t internal = berror_get();
+		BASSERT(!memcmp(&internal, &empty, sizeof(berror_info_t)));
+		memset(&g_err, 0, sizeof(berror_info_t));
+	}
+}
