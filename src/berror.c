@@ -22,20 +22,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+/** \file src/berror_utils.h
+ * \details This file contains the implementation of the berror library. */
+
 #include "berror_utils.h"
 #include <stdio.h>
 #include <errno.h>
 
+/** Thread local global error object. */
 _Thread_local berror_info_t g_err = {0};
 
-void berror_set(berror_info_t err_info) {
+/** Sets the global error object.
+ * \param err_info The error information to be copied to the global error object. */
+void berror_set(const berror_info_t err_info) {
 	g_err = err_info;
 }
 
 #ifdef TEST
+/** Variable used to test the berror_print() function. */
 int g_is_err_printed = 0;
 #endif
 
+/** Prints the contents of the global error object. */
 void berror_print() {
 #ifndef TEST
 	fprintf(stderr, "[ERROR]:\n\tFile: %s\n\tFunc: %s\n\tLine: %d\n\tMessage: %s\n",
@@ -48,6 +56,7 @@ void berror_print() {
 
 }
 
+/** Returns the contents of the global error object. */
 berror_info_t berror_get() {
 	return g_err;
 }

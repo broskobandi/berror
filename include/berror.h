@@ -22,9 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+/** \file include/berror.h
+ * \details This file contains the public interface for the berror library. */
+
 #ifndef BERROR_H
 #define BERROR_H
 
+/** Struct to contain error information in. */
 typedef struct berror_info {
 	const char *file;
 	const char *func;
@@ -32,17 +36,28 @@ typedef struct berror_info {
 	int line;
 } berror_info_t;
 
+/** Conveniently passes all the necessary information to berror_set().
+ * \param message The error message. */
 #define BERROR_SET(message)\
 	berror_set((berror_info_t){.file = __FILE__, .func = __func__, .msg = (message), .line = __LINE__})
 
+/** Conveniently passes all the necessary information to berror_set() and 
+ * returns from the current function. Optionally, a return value can be passed 
+ * if necessary. 
+ * \param message The error message. 
+ * \param ... The optional return value. Leave empty for void functions. */
 #define ERR(message, ...)\
 	do {\
 		BERROR_SET(message);\
 		return __VA_ARGS__;\
 	} while(0);
 
-void berror_set(berror_info_t err_info);
+/** Sets the global error object.
+ * \param err_info The error information to be copied to the global error object. */
+void berror_set(const berror_info_t err_info);
+/** Prints the contents of the global error object. */
 void berror_print();
+/** Returns the contents of the global error object. */
 berror_info_t berror_get();
 
 #endif
