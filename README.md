@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 ```
-Don't forget to add -lberror to the compile command to link the library.
+Don't forget to add -L/usr/local/bin -lberror to the compile command to link the library.
 ## Generate documentation
 ```bash
 cd berror &&
