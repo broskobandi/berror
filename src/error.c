@@ -22,30 +22,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/** \file src/berror_utils.h
- * \details This file contains the implementation of the berror library. */
+/** \file src/error_utils.h
+ * \details This file contains the implementation of the error library. */
 
-#include "berror_utils.h"
+#include "error_utils.h"
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>
 
 /** Thread local global error object. */
-_Thread_local berror_info_t g_err = {0};
+_Thread_local error_info_t g_err = {0};
 
 /** Sets the global error object.
  * \param err_info The error information to be copied to the global error object. */
-void berror_set(const berror_info_t err_info) {
+void error_set(const error_info_t err_info) {
 	g_err = err_info;
 }
 
 #ifdef TEST
-/** Variable used to test the berror_print() function. */
+/** Variable used to test the error_print() function. */
 int g_is_err_printed = 0;
 #endif
 
 /** Prints the contents of the global error object. */
-void berror_print() {
+void error_print() {
 #ifndef TEST
 	fprintf(stderr, "[ERROR]:\n\tFile: %s\n\tFunc: %s\n\tLine: %d\n\tMessage: %s\n",
 			g_err.file, g_err.func, g_err.line, g_err.msg);
@@ -59,11 +59,11 @@ void berror_print() {
 
 /** Returns the contents of the thrad-local global error object.
  * \return The error info. */
-berror_info_t berror_get() {
+error_info_t error_get() {
 	return g_err;
 }
 
 /** Clears the contents of the thread-local global error object. */
-void berror_reset() {
-	memset(&g_err, 0, sizeof(berror_info_t));
+void error_reset() {
+	memset(&g_err, 0, sizeof(error_info_t));
 }

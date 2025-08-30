@@ -22,45 +22,45 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/** \file include/berror.h
- * \details This file contains the public interface for the berror library. */
+/** \file include/error.h
+ * \details This file contains the public interface for the error library. */
 
-#ifndef BERROR_H
-#define BERROR_H
+#ifndef ERROR_H
+#define ERROR_H
 
 /** Struct to contain error information in. */
-typedef struct berror_info {
+typedef struct error_info {
 	const char *file;
 	const char *func;
 	const char *msg;
 	int line;
-} berror_info_t;
+} error_info_t;
 
-/** Conveniently passes all the necessary information to berror_set().
+/** Conveniently passes all the necessary information to error_set().
  * \param message The error message. */
-#define BERROR_SET(message)\
-	berror_set((berror_info_t){.file = __FILE__, .func = __func__, .msg = (message), .line = __LINE__})
+#define ERROR_SET(message)\
+	error_set((error_info_t){.file = __FILE__, .func = __func__, .msg = (message), .line = __LINE__})
 
-/** Conveniently passes all the necessary information to berror_set() and 
+/** Conveniently passes all the necessary information to error_set() and 
  * returns from the current function. Optionally, a return value can be passed 
  * if necessary. 
  * \param message The error message. 
  * \param ... The optional return value. Leave empty for void functions. */
 #define ERR(message, ...)\
 	do {\
-		BERROR_SET(message);\
+		ERROR_SET(message);\
 		return __VA_ARGS__;\
 	} while(0);
 
 /** Sets the thread-local global error object.
  * \param err_info The error information to be copied to the global error object. */
-void berror_set(const berror_info_t err_info);
+void error_set(const error_info_t err_info);
 /** Prints the contents of the thread-local global error object. */
-void berror_print();
+void error_print();
 /** Returns the contents of the thrad-local global error object.
  * \return The error info. */
-berror_info_t berror_get();
+error_info_t error_get();
 /** Clears the contents of the thread-local global error object. */
-void berror_reset();
+void error_reset();
 
 #endif

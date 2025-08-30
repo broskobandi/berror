@@ -1,12 +1,12 @@
-#include "test_berror.h"
+#include "test_error.h"
 
-BTEST_INIT;
+TEST_INIT;
 
 int main(void) {
-	test_berror_set();
-	test_berror_print();
-	test_berror_get();
-	test_berror_reset();
+	test_error_set();
+	test_error_print();
+	test_error_get();
+	test_error_reset();
 
-	btest_print_results();
+	test_print_results();
 }

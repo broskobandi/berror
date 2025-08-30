@@ -1,5 +1,5 @@
 # Project
-PROJECT := berror
+PROJECT := error
 CC := $(shell command -v clang || command -v gcc)
 CFLAGS := -Wall -Wextra -Werror -Wconversion -Wunused-result
 CPPFLAGS := -Iinclude

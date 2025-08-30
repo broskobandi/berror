@@ -1,4 +1,4 @@
-# berror
+# error
 Threadsafe error handling tool for C.
 
 ## Features
@@ -8,21 +8,21 @@ Threadsafe error handling tool for C.
 
 ## Installation
 ```bash
-git clone https://github.com/broskobandi/berror.git &&
-cd berror &&
+git clone https://github.com/broskobandi/error.git &&
+cd error &&
 make &&
 sudo make install
 ```
 
 ## Uninstallation
 ```bash
-cd berror &&
+cd error &&
 sudo make uninstall
 ```
 
 ## Testing
 ```bash
-cd berror &&
+cd error &&
 make clean &&
 make test &&
 make clean
@@ -31,7 +31,7 @@ make clean
 ## Usage
 ```c
 /* Include the library */
-#include <berror.h>
+#include <error.h>
 #include <stdio.h>
 
 /* Find a fallible function. */
@@ -41,7 +41,7 @@ float divide(float dividend, float divisor) {
 		/* Set the error message and return from the function.
 		 * This macro fills the global error object with useful
 		 * addition information. */
-		BERROR_SET("Divisor must not be 0.");
+		ERROR_SET("Divisor must not be 0.");
 		return -1.0f;
 		/* Optionally, this process can be achieved
 		 * with just one macro call as well:
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
 	/* Call the fallible function and test the result value. */
 	if (divide(10, 0) == -1.0f) {
 		/* Print the error information and return from the function. */
-		berror_print();
+		error_print();
 		return 1;
 	}
 	/* This will print:
@@ -68,8 +68,8 @@ int main(int argc, char *argv[]) {
 	 * that information will also be printed. */
 	FILE *file = fopen("some_file_that_does_not_exist", "r");
 	if (!file) {\
-		BERROR_SET("Failed to open file.");
-		berror_print();
+		ERROR_SET("Failed to open file.");
+		error_print();
 		return 1;
 	}
 	/* This will print:
@@ -83,10 +83,10 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 ```
-Don't forget to add -L/usr/local/bin -lberror to the compile command to link the library.
+Don't forget to add -L/usr/local/bin -lerror to the compile command to link the library.
 ## Generate documentation
 ```bash
-cd berror &&
+cd error &&
 make doc
 ```
 Then open the index.html file in doc/html to read the documentation.

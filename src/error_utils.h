@@ -22,19 +22,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/** \file src/berror_utils.h
- * \details This file contains the private interface for the berror library. */
+/** \file src/error_utils.h
+ * \details This file contains the private interface for the error library. */
 
-#ifndef BERROR_UTILS_H
-#define BERROR_UTILS_H
+#ifndef ERROR_UTILS_H
+#define ERROR_UTILS_H
 
-#include "berror.h"
+#include "error.h"
 
 /** Thread local global error object. */
-extern _Thread_local berror_info_t g_err;
+extern _Thread_local error_info_t g_err;
 
 #ifdef TEST
-/** Variable used to test the berror_print() function. */
+/** Variable used to test the error_print() function. */
 extern int g_is_err_printed;
 #endif
 
