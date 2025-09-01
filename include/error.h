@@ -52,6 +52,14 @@ typedef struct error_info {
 		return __VA_ARGS__;\
 	} while(0);
 
+/** Returns from the current function. Optionally, a return value can be passed 
+ * if necessary. This macro was made to create a uniform look in code where the 
+ * ERR() macro is used.
+ * \param message The error message. 
+ * \param ... The optional return value. Leave empty for void functions. */
+#define OK(...)\
+	return __VA_ARGS__;
+
 /** Sets the thread-local global error object.
  * \param err_info The error information to be copied to the global error object. */
 void error_set(const error_info_t err_info);
