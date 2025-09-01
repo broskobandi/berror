@@ -58,7 +58,7 @@ typedef struct error_info {
  * \param message The error message. 
  * \param ... The optional return value. Leave empty for void functions. */
 #define OK(...)\
-	return __VA_ARGS__;
+	return __VA_ARGS__
 
 /** Sets the thread-local global error object.
  * \param err_info The error information to be copied to the global error object. */
