@@ -33,9 +33,13 @@ SOFTWARE.
 /** Thread local global error object. */
 _Thread_local error_info_t g_err = {0};
 
+/** Thread local global error state */
+_Thread_local int g_is_err_set = 0;
+
 /** Sets the global error object.
  * \param err_info The error information to be copied to the global error object. */
 void error_set(const error_info_t err_info) {
+	g_is_err_set = 1;
 	g_err = err_info;
 }
 
@@ -66,4 +70,5 @@ error_info_t error_get() {
 /** Clears the contents of the thread-local global error object. */
 void error_reset() {
 	memset(&g_err, 0, sizeof(error_info_t));
+	g_is_err_set = 0;
 }
