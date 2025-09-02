@@ -71,4 +71,8 @@ error_info_t error_get();
 /** Clears the contents of the thread-local global error object. */
 void error_reset();
 
+/** Checks the global error state.
+ * \return 0 if the global error is not set, 1 if it is set. */
+int error_state();
+
 #endif

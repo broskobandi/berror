@@ -72,3 +72,9 @@ void error_reset() {
 	memset(&g_err, 0, sizeof(error_info_t));
 	g_is_err_set = 0;
 }
+
+/** Checks the global error state.
+ * \return 0 if the global error is not set, 1 if it is set. */
+int error_state() {
+	return  g_is_err_set;
+}

@@ -33,6 +33,9 @@ SOFTWARE.
 /** Thread local global error object. */
 extern _Thread_local error_info_t g_err;
 
+/** Thread local global error state */
+extern _Thread_local int g_is_err_set;
+
 #ifdef TEST
 /** Variable used to test the error_print() function. */
 extern int g_is_err_printed;
