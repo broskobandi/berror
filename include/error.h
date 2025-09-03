@@ -60,6 +60,19 @@ typedef struct error_info {
 #define RET_OK(...)\
 	return __VA_ARGS__
 
+/** Experimental try catch pattern */
+#define TRY(task, catch)\
+	do {\
+		do {\
+			task\
+		} while (0);\
+		if (error_state()) {\
+			do {\
+				catch\
+			} while (0);\
+		}\
+	} while(0);
+
 /** Sets the thread-local global error object.
  * \param err_info The error information to be copied to the global error object. */
 void error_set(const error_info_t err_info);
