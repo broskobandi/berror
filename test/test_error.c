@@ -62,3 +62,34 @@ void test_error_reset() {
 		memset(&g_err, 0, sizeof(error_info_t));
 	}
 }
+
+void test_error_state() {
+	{ // Normal case
+		error_reset();
+		ASSERT(!error_state());
+		ERROR_SET("message");
+		ASSERT(error_state());
+	}
+}
+
+void test_macros() {
+	{ // ERROR_SET
+		error_reset();
+		ERROR_SET("msg");
+		int line = __LINE__ - 1;
+		ASSERT(g_err.line == line);
+		ASSERT(!strcmp(g_err.msg, "msg"));
+		ASSERT(!strcmp(g_err.file, __FILE__));
+		ASSERT(!strcmp(g_err.func, __func__));
+	}
+	{ // TRY
+		error_reset();
+		TRY(
+			int x = 5;
+			if (x > 1) ERROR_SET("task failed.");
+		,
+			error_print()
+		);
+		ASSERT(error_state());
+	}
+}

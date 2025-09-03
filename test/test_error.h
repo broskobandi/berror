@@ -7,5 +7,7 @@ void test_error_set();
 void test_error_print();
 void test_error_get();
 void test_error_reset();
+void test_error_state();
+void test_macros();
 
 #endif
