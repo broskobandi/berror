@@ -1,9 +1,10 @@
-/* Include the library */
-#include <error.h>
 #include <stdio.h>
 
+/* Include the library */
+#include <error.h>
+
 /* Find a fallible function. */
-float divide(float dividend, float divisor) {
+float divide(int dividend, int divisor) {
 	/* Test a potentially erroneous value. */
 	if (!divisor) {
 		/* Set the error message and return from the function.
@@ -13,12 +14,14 @@ float divide(float dividend, float divisor) {
 		return -1.0f;
 		/* Optionally, this process can be achieved
 		 * with just one macro call as well:
-		 * ERR("Divisor must not be 0.", -1.0)*/
+		 * RET_ERR("Divisor must not be 0.", -1.0)*/
 	}
-	return dividend / divisor;
+	return ((float)dividend / (float)divisor);
+	/* Optionally, this process can be achieved 
+	 * by calling RET_OK(<return_value>) if you prefer a uniform look. */
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
 	/* Call the fallible function and test the result value. */
 	if (divide(10, 0) == -1.0f) {
 		/* Print the error information and return from the function. */
@@ -47,6 +50,21 @@ int main(int argc, char *argv[]) {
 		Line: 34
 		Message: Failed to open file.
 	Additional information: No such file or directory */
+
+	/* On top of this, a try-catch-like pattern is provided for functions 
+	 * or other tasks that may set the error state internally but do not
+	 * indicate success through a return value. */
+	TRY(
+		// Some task to try
+		int x = 5;
+		if (x > 1)
+			ERROR_SET("X is too big.");
+		// Or a void function that sets the error state internally.
+	,
+		// To be executed if the error state was set
+		error_print();
+		return 1;
+	)
 
 	return 0;
 }
