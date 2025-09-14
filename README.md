@@ -50,8 +50,16 @@ float divide(unsigned int a, unsigned int b) {
 int main(void) {
 	/* Execute the function and exit with
 	 * the specified error code on failure. */
-	TRY(divide(10, 2), 1);
+	TRY(divide(10, 0), 1);
 
 	return 0;
 }
+
+/* The program will print the following error and exit:
+[ERROR]:
+        Msg: b cannot be zero.
+        File: example/example.c
+        Func: divide
+        Line: 6
+ */
 ```
