@@ -1,11 +1,13 @@
 # error
-Threadsafe error handling tool for C.
-
+## Simple thread-safe error utility written in C.
+The goal of the project is to provide convenient tools to save and retrieve 
+error information.
 ## Features
-- Threadlocal global error struct containing information about file, function, line, and a custom error message.
-- The error information is retained until another process overrides it within the same thread.
-- The print function calls perror implicitly, so an associated error message is also printed if errno is set by any of the standard libary functions.
-
+### Performant thread safety
+Thread safety is achieved without the use of mutex locks for increased 
+performance.
+### Convenient macro helpers
+Function-like macros are provided for a streamlined syntax.
 ## Installation
 ```bash
 git clone https://github.com/broskobandi/error.git &&
@@ -13,13 +15,11 @@ cd error &&
 make &&
 sudo make install
 ```
-
 ## Uninstallation
 ```bash
 cd error &&
 sudo make uninstall
 ```
-
 ## Testing
 ```bash
 cd error &&
@@ -27,15 +27,31 @@ make clean &&
 make test &&
 make clean
 ```
-
-## Usage
-Please refer to example.c for details about usage.
-Don't forget to add -L/usr/local/bin -lerror to the compile command to link the library.
-
-## Generate documentation
-This requires doxygen to be installed.
+## Documentation
+For generating the documentation, ensure that Doxygen is installed.
 ```bash
 cd error &&
 make doc
 ```
-Then open the index.html file in doc/html to read the documentation.
+Then open doc/html/index.html to view the generated documentation.
+## Usage
+```c
+/* Include the library. */
+#include <error.h>
+
+float divide(unsigned int a, unsigned int b) {
+	/* Set the error code and return the specified error code... */
+	if (b == 0) RET_ERR("b cannot be zero.", -1.0);
+
+	/* ... or return the desired result. */
+	RET_OK((float)a / (float)b);
+}
+
+int main(void) {
+	/* Execute the function and exit with
+	 * the specified error code on failure. */
+	TRY(divide(10, 2), 1);
+
+	return 0;
+}
+```
