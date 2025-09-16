@@ -67,7 +67,7 @@ void error_print() {
 		"[ERROR]:\n\tMsg: %s\n\tFile: %s\n\tFunc: %s\n\tLine: %d\n",
 		g_err.msg, g_err.file, g_err.func, g_err.line);
 	if (errno) {
-		perror("\tExtra info:")
+		perror("\tExtra info:");
 	}
 #endif
 }
