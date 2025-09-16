@@ -29,6 +29,7 @@ SOFTWARE.
 
 #include "error_private.h"
 #include <stdio.h>
+#include <errno.h>
 
 /** The global error object. */
 _Thread_local static err_t g_err;
@@ -65,6 +66,9 @@ void error_print() {
 	fprintf(stderr,
 		"[ERROR]:\n\tMsg: %s\n\tFile: %s\n\tFunc: %s\n\tLine: %d\n",
 		g_err.msg, g_err.file, g_err.func, g_err.line);
+	if (errno) {
+		perror("\tExtra info:")
+	}
 #endif
 }
 
